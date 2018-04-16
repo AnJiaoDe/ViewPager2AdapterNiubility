@@ -1,4 +1,5 @@
 [CSDN](https://blog.csdn.net/confusing_awakening/article/details/79959785)
+
 [APK](https://github.com/AnJiaoDe/LoopViewPager/tree/master/app/build/outputs/apk)
 
 如有任何问题或者是建议，可以QQ群:安娇德IT技术交流群757173381讨论，开源库会根据需求持续更新。
