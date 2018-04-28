@@ -1,4 +1,4 @@
-[CSDN](https://blog.csdn.net/confusing_awakening/article/details/79959785)
+[简书](https://www.jianshu.com/p/4ec14695c2d7)
 
 [APK](https://github.com/AnJiaoDe/LoopViewPager/tree/master/app/build/outputs/apk)
 
@@ -454,3 +454,18 @@ public abstract class CYLoopPagerAdapter<T> extends LoopPagerAdapter {
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+   
+   
+   [GitHub](https://github.com/AnJiaoDe)
+
+[CSDN](https://blog.csdn.net/confusing_awakening)
+
+[简书](https://www.jianshu.com/u/b8159d455c69)
+
+ 微信公众号
+ ![这里写图片描述](https://img-blog.csdn.net/20180428174200810?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvbmZ1c2luZ19hd2FrZW5pbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+QQ群
+![这里写图片描述](https://img-blog.csdn.net/20180428174035954?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvbmZ1c2luZ19hd2FrZW5pbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+ 
