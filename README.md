@@ -40,17 +40,7 @@ dependencies {
 ```
 
 ```
-package com.cy.cyrollpagerview;
 
-import android.os.Bundle;
-import android.view.View;
-
-import com.cy.rollpagerview.CYColorPointHintView;
-import com.cy.rollpagerview.CYLoopPagerAdapter;
-import com.cy.rollpagerview.CYRollPagerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VPLayoutActivity extends BaseActivity {
     private CYLoopPagerAdapter<VPBean> cyLoopPagerAdapter;
@@ -124,17 +114,6 @@ public class VPLayoutActivity extends BaseActivity {
 ```
 
 ```
-package com.cy.cyrollpagerview;
-
-import android.os.Bundle;
-import android.view.View;
-
-import com.cy.rollpagerview.CYColorPointHintView;
-import com.cy.rollpagerview.CYLoopPagerAdapter;
-import com.cy.rollpagerview.CYRollPagerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VPLayoutMultiActivity extends BaseActivity {
 
@@ -199,26 +178,7 @@ public class VPLayoutMultiActivity extends BaseActivity {
   **CYLoopPagerAdapter**
 
 ```
-package com.cy.rollpagerview;
 
-import android.graphics.Bitmap;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.LoopPagerAdapter;
-
-import java.util.List;
-
-/**
- * Created by lenovo on 2018/1/10.
- */
 
 public abstract class CYLoopPagerAdapter<T> extends LoopPagerAdapter {
     private List<T> list_bean;
