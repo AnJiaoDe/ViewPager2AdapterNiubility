@@ -1,3 +1,4 @@
+
 [简书](https://www.jianshu.com/p/4ec14695c2d7)
 
 [APK](https://github.com/AnJiaoDe/LoopViewPager/blob/master/app/build/outputs/apk/app-debug.apk)
@@ -22,6 +23,9 @@ dependencies {
 	        compile 'com.github.AnJiaoDe:LoopViewPager:1.1.1'
 	}
 ```
+
+**注意：如果sync报错，是因为和com.android.tools.build:gradle 3.0有关，**
+**可以改将compile改为implementation 或者api** 
 **1.VP+Layout**
 
 
