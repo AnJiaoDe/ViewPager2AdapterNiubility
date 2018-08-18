@@ -20,7 +20,7 @@ allprojects {
 
 ```
 dependencies {
-	        compile 'com.github.AnJiaoDe:LoopViewPager:V1.1.3'
+	        compile 'com.github.AnJiaoDe:LoopViewPager:V1.1.4'
 	}
 ```
 
@@ -400,6 +400,8 @@ public abstract class CYLoopPagerAdapter<T> extends LoopPagerAdapter {
  
  *V1.1.1*
   - Android ViewPager无限自动轮播开源库（多布局、自定义HintView）
+  *V1.1.4*
+  - getRealCount有效
   
   
 
