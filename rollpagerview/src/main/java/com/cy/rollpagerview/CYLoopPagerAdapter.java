@@ -49,7 +49,7 @@ public abstract class CYLoopPagerAdapter<T> extends LoopPagerAdapter {
     }
 
     @Override
-    protected int getRealCount() {
+    public int getRealCount() {
         return list_bean.size();
     }
     //填充数据

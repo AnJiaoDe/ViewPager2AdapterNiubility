@@ -55,6 +55,7 @@ public class VPLayoutActivity extends BaseActivity {
         };
 
         cyRollPagerView.setAdapter(cyLoopPagerAdapter,3000,new CYColorPointHintView(this));
+
     }
 
     @Override
