@@ -20,7 +20,7 @@ allprojects {
 
 ```
 dependencies {
-	        compile 'com.github.AnJiaoDe:LoopViewPager:V1.1.2'
+	        compile 'com.github.AnJiaoDe:LoopViewPager:V1.1.3'
 	}
 ```
 
