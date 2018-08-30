@@ -1,5 +1,6 @@
 package com.cy.rollpagerview;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -206,15 +207,15 @@ public abstract class CYLoopPagerAdapter<T> extends LoopPagerAdapter {
         }
 
 
-        public void setImage( int iv_id, String url) {
+        public void setImage(Context context, int iv_id, String url) {
             ImageView iv = getView(iv_id);
 
-            GlideUtils.loadImageByGlide(itemView.getContext(), url, iv);
+            GlideUtils.loadImageByGlide(context, url, iv);
         }
-        public void setImage( int iv_id, String url, int width,int height) {
+        public void setImage(Context context, int iv_id, String url, int width,int height) {
             ImageView iv = getView(iv_id);
 
-            GlideUtils.loadImageByGlide(itemView.getContext(), url, iv, width,height);
+            GlideUtils.loadImageByGlide(context, url, iv, width,height);
         }
         public void setOnClickListener(int res_id, View.OnClickListener onClickListener) {
             getView(res_id).setOnClickListener(onClickListener);

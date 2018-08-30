@@ -40,7 +40,7 @@ public class VPLayoutMultiActivity extends BaseActivity {
             public void bindDataToView(ViewHolder holder, int position, VPBean bean) {
 
 
-                holder.setImage(R.id.iv,bean.getUrl(),1080,500);
+                holder.setImage(VPLayoutMultiActivity.this,R.id.iv,bean.getUrl(),1080,500);
                 holder.setText(R.id.tv,bean.getText());
             }
 
@@ -60,7 +60,7 @@ public class VPLayoutMultiActivity extends BaseActivity {
         };
 
         cyRollPagerView.setAdapter(cyLoopPagerAdapter,new CYColorPointHintView(
-                this,0xffff0000,0xffffffff,8,8,4));
+                this,0xffff0000,0xffffffff,4,4,2));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class VPLayoutActivity extends BaseActivity {
             public void bindDataToView(ViewHolder holder, int position, VPBean bean) {
 
 
-                holder.setImage(R.id.iv,bean.getUrl(),1080,500);
+                holder.setImage(VPLayoutActivity.this,R.id.iv,bean.getUrl(),1080,500);
                 holder.setText(R.id.tv,bean.getText());
             }
 
