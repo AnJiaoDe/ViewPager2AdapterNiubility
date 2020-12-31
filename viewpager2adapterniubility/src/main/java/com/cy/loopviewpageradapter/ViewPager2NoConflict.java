@@ -1,7 +1,6 @@
 package com.cy.loopviewpageradapter;
 
 import android.content.Context;
-import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ public class ViewPager2NoConflict extends FrameLayout {
     private float moveX;
     private float moveY;
     private ViewPager2 viewPager2;
+    private int pointer_others_count = 0;
 
     public ViewPager2NoConflict(@NonNull Context context) {
         this(context, null);
@@ -33,7 +33,7 @@ public class ViewPager2NoConflict extends FrameLayout {
     public ViewPager2NoConflict(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.viewPager2 = new ViewPager2(context);
-        addView(viewPager2, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        addView(viewPager2, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     public ViewPager2 getViewPager2() {
@@ -42,10 +42,14 @@ public class ViewPager2NoConflict extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+        switch (ev.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 downX = ev.getX();
                 downY = ev.getY();
+                pointer_others_count = 0;
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                pointer_others_count++;
                 break;
             case MotionEvent.ACTION_MOVE:
                 moveX = ev.getX();
@@ -56,7 +60,11 @@ public class ViewPager2NoConflict extends FrameLayout {
                 downX = moveX;
                 downY = moveY;
 
-                if (Math.abs(dx) < Math.abs(dy)) return true;
+                if (pointer_others_count <= 0 && Math.abs(dx) < Math.abs(dy)) return true;
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                pointer_others_count--;
+                break;
         }
         return super.dispatchTouchEvent(ev);
     }
