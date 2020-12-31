@@ -19,16 +19,16 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class ItemViewPager2 extends FrameLayout {
+public class ViewPager2Item extends FrameLayout {
     private float downX, downY;
     private float moveX;
     private float moveY;
 
-    public ItemViewPager2(@NonNull Context context) {
+    public ViewPager2Item(@NonNull Context context) {
         this(context, null);
     }
 
-    public ItemViewPager2(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ViewPager2Item(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
