@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+ <com.cy.loopviewpageradapter.SimpleIndicatorView
+     android:layout_width="wrap_content"
+     android:id="@+id/indicator"
+     android:layout_marginBottom="100dp"
+     android:layout_gravity="bottom"
+     android:layout_height="wrap_content"/>
+</FrameLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="cy_indicator_space" format="dimension|reference" />
+    <attr name="cy_indicator_radius_normal" format="dimension|reference"/>
+    <attr name="cy_indicator_radius_selected" format="dimension|reference"/>
+    <declare-styleable name="SimpleIndicatorView">
+        <attr name="cy_indicator_space" />
+        <attr name="cy_indicator_radius_normal"/>
+        <attr name="cy_indicator_radius_selected"/>
+    </declare-styleable>
+</resources>
