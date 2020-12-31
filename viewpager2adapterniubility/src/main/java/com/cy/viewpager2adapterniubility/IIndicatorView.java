@@ -1,7 +1,5 @@
-package com.cy.loopviewpageradapter;
+package com.cy.viewpager2adapterniubility;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.view.View;
 
 /**

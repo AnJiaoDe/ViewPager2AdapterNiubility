@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cy.loopviewpageradapter.ViewPager2NoConflict
+    <com.cy.viewpager2adapterniubility.ViewPager2NoConflict
         android:id="@+id/vp2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.cy.loopviewpageradapter.ViewPager2NoConflict>
+        android:layout_height="match_parent"></com.cy.viewpager2adapterniubility.ViewPager2NoConflict>
 </FrameLayout>

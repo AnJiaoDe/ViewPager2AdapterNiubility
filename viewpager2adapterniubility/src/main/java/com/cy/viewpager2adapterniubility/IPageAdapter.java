@@ -1,4 +1,4 @@
-package com.cy.loopviewpageradapter;
+package com.cy.viewpager2adapterniubility;
 
 import java.util.List;
 

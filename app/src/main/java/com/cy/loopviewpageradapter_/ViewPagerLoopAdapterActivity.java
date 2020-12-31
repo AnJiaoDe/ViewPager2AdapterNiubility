@@ -7,10 +7,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.cy.loopviewpageradapter.R;
-import com.cy.loopviewpageradapter.SimpleIndicatorView;
-import com.cy.loopviewpageradapter.ViewPagerHolder;
-import com.cy.loopviewpageradapter.ViewPagerLoopAdapter;
+import com.cy.viewpager2adapterniubility.R;
+import com.cy.viewpager2adapterniubility.SimpleIndicatorView;
+import com.cy.viewpager2adapterniubility.ViewPagerHolder;
+import com.cy.viewpager2adapterniubility.ViewPagerLoopAdapter;
 
 public class ViewPagerLoopAdapterActivity extends AppCompatActivity {
 

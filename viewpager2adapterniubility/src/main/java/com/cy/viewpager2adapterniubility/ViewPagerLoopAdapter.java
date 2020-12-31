@@ -1,4 +1,4 @@
-package com.cy.loopviewpageradapter;
+package com.cy.viewpager2adapterniubility;
 
 import android.os.Looper;
 import android.view.View;
@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Timer;
 import java.util.TimerTask;

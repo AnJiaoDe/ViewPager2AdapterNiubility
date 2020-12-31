@@ -1,24 +1,13 @@
-package com.cy.loopviewpageradapter;
+package com.cy.viewpager2adapterniubility;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:

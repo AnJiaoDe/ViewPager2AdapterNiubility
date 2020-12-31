@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cy.loopviewpageradapter.R;
-import com.cy.loopviewpageradapter.ViewPagerAdapter;
-import com.cy.loopviewpageradapter.ViewPagerHolder;
+import com.cy.viewpager2adapterniubility.R;
+import com.cy.viewpager2adapterniubility.ViewPagerAdapter;
+import com.cy.viewpager2adapterniubility.ViewPagerHolder;
 
 public class ViewPagerAdapterActivity extends AppCompatActivity {
 

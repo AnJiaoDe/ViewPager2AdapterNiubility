@@ -1,19 +1,15 @@
 package com.cy.loopviewpageradapter_;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cy.loopviewpageradapter.R;
-import com.cy.loopviewpageradapter.ViewPager2Adapter;
-import com.cy.loopviewpageradapter.ViewPager2Holder;
-import com.cy.loopviewpageradapter.ViewPager2NoConflict;
-import com.cy.loopviewpageradapter.ViewPagerAdapter;
-import com.cy.loopviewpageradapter.ViewPagerHolder;
+import com.cy.viewpager2adapterniubility.R;
+import com.cy.viewpager2adapterniubility.ViewPager2Adapter;
+import com.cy.viewpager2adapterniubility.ViewPager2Holder;
+import com.cy.viewpager2adapterniubility.ViewPager2NoConflict;
 
 public class ViewPager2AdapterActivity extends AppCompatActivity {
 

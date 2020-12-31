@@ -3,23 +3,10 @@ package com.cy.loopviewpageradapter_;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 
-import com.cy.loopviewpageradapter.R;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.Signature;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import com.cy.viewpager2adapterniubility.R;
 
 public class MainActivity extends AppCompatActivity {
 
