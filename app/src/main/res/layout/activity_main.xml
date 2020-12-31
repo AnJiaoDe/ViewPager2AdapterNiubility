@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.cy.loopviewpageradapter_.MainActivity">
 
     <Button
-        android:id="@+id/btn_1"
+        android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="vp+layout" />
-    <Button
-        android:id="@+id/btn_2"
+        android:text="viewpager" />
 
+    <Button
+        android:id="@+id/vp_looper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="vp=layout+multi" />
+        android:text="viewpager_looper" />
+
+    <Button
+        android:id="@+id/vp2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="viewpager2" />
+
+    <Button
+        android:id="@+id/vp2_looper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="viewpager2_looper" />
+
 </LinearLayout>
