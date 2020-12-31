@@ -34,5 +34,5 @@ dependencies {
 
     api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'androidx.viewpager2:viewpager2:1.0.0'
-    api project(path: ':loopviewpageradapter')
+    api project(path: ':viewpager2adapterniubility')
 }
