@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,20 +24,102 @@ import java.util.List;
 public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPager2Holder> implements IPageAdapter<T, ViewPager2Holder> {
 
     protected List<T> list_bean;//数据源
+    private ViewPager2 viewPager2;
+    private View.OnAttachStateChangeListener onAttachStateChangeListener;
+    private ViewPager2.OnPageChangeCallback onPageChangeCallback;
+    protected SparseArray<ViewPager2Holder> sparseArrayViewPager2Holder;
 
-    public ViewPager2Adapter() {
+    public ViewPager2Adapter(final ViewPager2 viewPager2) {
         list_bean = new ArrayList<>();//数据源
+        this.viewPager2 = viewPager2;
+        sparseArrayViewPager2Holder = new SparseArray<>();
+        onPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                ViewPager2Adapter.this.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ViewPager2Adapter.this.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                ViewPager2Adapter.this.onPageScrollStateChanged(state);
+            }
+        };
+        onAttachStateChangeListener = new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                ViewPager2Adapter.this.onViewDetachedFromWindow(v);
+                clear();
+                sparseArrayViewPager2Holder.clear();
+                viewPager2.removeOnAttachStateChangeListener(onAttachStateChangeListener);
+                viewPager2.unregisterOnPageChangeCallback(onPageChangeCallback);
+            }
+        };
+        viewPager2.addOnAttachStateChangeListener(onAttachStateChangeListener);
+        viewPager2.registerOnPageChangeCallback(onPageChangeCallback);
     }
 
-    @NonNull
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
+        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
+        if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
+            ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
+    }
+
+    @Override
+    public void onPageSelected(ViewPager2Holder holder, int position, @NonNull T bean) {
+
+    }
+
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onViewRecycled(int position, @NonNull T bean) {
+
+    }
+
+    public void onViewDetachedFromWindow(View v) {
+    }
+
     @Override
     public ViewPager2Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewPager2Holder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
     }
 
+    @Override
+    public void onViewRecycled(@NonNull ViewPager2Holder holder) {
+        super.onViewRecycled(holder);
+        int position = holder.getAdapterPosition();
+        sparseArrayViewPager2Holder.remove(position);
+        if (position < 0 || position >= list_bean.size()) return;
+        onViewRecycled(position, list_bean.get(position));
+    }
+
+    @Override
+    public ViewPager2Holder getViewPagerHolderFromPosition(int position) {
+        return sparseArrayViewPager2Holder.get(position);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelectedonBindViewHolder", position);
+        sparseArrayViewPager2Holder.put(position, holder);
         handleClick(holder);
         bindDataToView(holder, position, list_bean.get(position));
     }
@@ -275,6 +360,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     public <W extends IPageAdapter> W clear() {
         list_bean.clear();
         notifyDataSetChanged();
+        sparseArrayViewPager2Holder.clear();
         return (W) this;
     }
 

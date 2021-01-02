@@ -1,5 +1,9 @@
 package com.cy.viewpager2adapterniubility;
 
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -11,17 +15,29 @@ import java.util.List;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public interface IPageAdapter<T,V extends IViewHolder> {
+public interface IPageAdapter<T, V extends IViewHolder> {
 
-    public <W extends IPageAdapter> W getAdapter() ;
+    public <W extends IPageAdapter> W getAdapter();
 
-    public List<T> getList_bean() ;
+    public List<T> getList_bean();
 
-    public  void bindDataToView(V holder, int position, T bean);
+    public void onPageSelected(int position);
 
-    public  int getItemLayoutID(int position, T bean);
+    public void onPageSelected(V holder, int position, @NonNull T bean);
 
-    public  void onItemClick(V holder, int position, T bean);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
+    public void onPageScrollStateChanged(int state);
+
+    public void onViewRecycled(int position, @NonNull T bean);
+
+    public V getViewPagerHolderFromPosition(int position);
+
+    public void bindDataToView(V holder, int position, T bean);
+
+    public int getItemLayoutID(int position, T bean);
+
+    public void onItemClick(V holder, int position, T bean);
 
     /**
      * @param list_bean
@@ -31,12 +47,12 @@ public interface IPageAdapter<T,V extends IViewHolder> {
     /**
      * 删除相应position的数据Item
      */
-    public <W extends IPageAdapter> W removeNoNotify(int position) ;
+    public <W extends IPageAdapter> W removeNoNotify(int position);
 
     /**
      * 删除相应position的数据Item ,并且notify,
      */
-    public <W extends IPageAdapter> W remove(int position) ;
+    public <W extends IPageAdapter> W remove(int position);
 
     /**
      * 添加一条数据item
@@ -52,7 +68,7 @@ public interface IPageAdapter<T,V extends IViewHolder> {
     /**
      * 添加一条数据item
      */
-    public <W extends IPageAdapter> W addNoNotify(T bean) ;
+    public <W extends IPageAdapter> W addNoNotify(T bean);
 
     /**
      * 添加一条数据item,并且notify
@@ -68,7 +84,7 @@ public interface IPageAdapter<T,V extends IViewHolder> {
     /**
      * 添加一条数据item到position 0,并且notify
      */
-    public <W extends IPageAdapter> W addToTop(T bean) ;
+    public <W extends IPageAdapter> W addToTop(T bean);
 
     /**
      * 添加List
@@ -104,19 +120,19 @@ public interface IPageAdapter<T,V extends IViewHolder> {
      * 先清空后添加List,并且notify
      */
 
-    public <W extends IPageAdapter> W clearAdd(List<T> beans) ;
+    public <W extends IPageAdapter> W clearAdd(List<T> beans);
 
     /**
      * 添加List到position 0
      */
 
-    public <W extends IPageAdapter> W addToTopNoNotify(List<T> beans) ;
+    public <W extends IPageAdapter> W addToTopNoNotify(List<T> beans);
 
     /**
      * 添加List到position 0,并且notify
      */
 
-    public <W extends IPageAdapter> W addToTop(List<T> beans) ;
+    public <W extends IPageAdapter> W addToTop(List<T> beans);
 
     /**
      * 清空list
@@ -126,10 +142,10 @@ public interface IPageAdapter<T,V extends IViewHolder> {
     /**
      * 清空list
      */
-    public <W extends IPageAdapter> W clear() ;
+    public <W extends IPageAdapter> W clear();
 
 
     public <W extends IPageAdapter> W setNoNotify(int index, T bean);
 
-    public <W extends IPageAdapter> W set(int index, T bean) ;
+    public <W extends IPageAdapter> W set(int index, T bean);
 }

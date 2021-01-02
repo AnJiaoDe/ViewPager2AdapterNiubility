@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,82 @@ import java.util.List;
  */
 public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageAdapter<T, ViewPagerHolder> {
     protected List<T> list_bean;
-    private SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
+    private ViewPager viewPager;
+    protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
+    private View.OnAttachStateChangeListener onAttachStateChangeListener;
+    private ViewPager.OnPageChangeListener onPageChangeListener;
+    private int position_selected_last = -1;
 
-    public ViewPagerAdapter() {
+    public ViewPagerAdapter(final ViewPager viewPager) {
         list_bean = new ArrayList<>();
-        sparseArrayViewPagerHolder=new SparseArray<>();
+        this.viewPager = viewPager;
+        sparseArrayViewPagerHolder = new SparseArray<>();
+        onPageChangeListener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                ViewPagerAdapter.this.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ViewPagerAdapter.this.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                ViewPagerAdapter.this.onPageScrollStateChanged(state);
+            }
+        };
+        onAttachStateChangeListener = new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                ViewPagerAdapter.this.onViewDetachedFromWindow(v);
+                clear();
+                sparseArrayViewPagerHolder.clear();
+                viewPager.removeOnAttachStateChangeListener(onAttachStateChangeListener);
+                viewPager.removeOnPageChangeListener(onPageChangeListener);
+            }
+        };
+        viewPager.addOnAttachStateChangeListener(onAttachStateChangeListener);
+        viewPager.addOnPageChangeListener(onPageChangeListener);
+    }
+
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    public void onViewDetachedFromWindow(View v) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
+        ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+        if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
+            ViewPagerAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
+    }
+
+    @Override
+    public void onViewRecycled(int position, @NonNull T bean) {
+
+    }
+
+    @Override
+    public ViewPagerHolder getViewPagerHolderFromPosition(int position) {
+        return sparseArrayViewPagerHolder.get(position);
+    }
+
+    public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
     }
 
     @Override
@@ -47,7 +119,11 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
             }
         });
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
-        sparseArrayViewPagerHolder.put(position,viewPagerHolder);
+        if (position == 0 && position_selected_last == -1) {
+            position_selected_last = position;
+            onPageSelected(position);
+        }
+        sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         return viewPagerHolder;
     }
 
@@ -55,20 +131,15 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView(((ViewPagerHolder) object).itemView);
-        onViewRecycled(container,position,list_bean.get(position));
         sparseArrayViewPagerHolder.remove(position);
-    }
-    public ViewPagerHolder getViewPagerHolderFromPosition(int position){
-        return sparseArrayViewPagerHolder.get(position);
+        if (position < 0 || position >= list_bean.size()) return;
+        onViewRecycled(position, list_bean.get(position));
     }
 
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return ((ViewPagerHolder) object).itemView == view;
-    }
-
-    public void onViewRecycled(@NonNull ViewGroup container, int position, @NonNull T bean) {
     }
 
     @Override
@@ -262,6 +333,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     public <W extends IPageAdapter> W clear() {
         list_bean.clear();
         notifyDataSetChanged();
+        sparseArrayViewPagerHolder.clear();
         return (W) this;
     }
 

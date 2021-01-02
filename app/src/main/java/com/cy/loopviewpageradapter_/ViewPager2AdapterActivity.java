@@ -19,7 +19,7 @@ public class ViewPager2AdapterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager2_adapter2);
 
         ViewPager2 viewPager2=findViewById(R.id.vp2);
-        ViewPager2Adapter<PageBean> viewPager2Adapter =new ViewPager2Adapter<PageBean>() {
+        ViewPager2Adapter<PageBean> viewPager2Adapter =new ViewPager2Adapter<PageBean>(viewPager2) {
             @Override
             public void bindDataToView(ViewPager2Holder holder, int position, PageBean bean) {
                 ImageView imageView=holder.itemView.findViewById(R.id.iv);

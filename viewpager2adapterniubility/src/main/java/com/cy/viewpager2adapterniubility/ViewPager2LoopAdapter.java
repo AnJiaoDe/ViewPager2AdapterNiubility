@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -30,52 +31,60 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     private boolean isLoopStarted = false;
 
     public ViewPager2LoopAdapter(final ViewPager2 viewPager2, final IIndicatorView indicatorView) {
+        super(viewPager2);
         this.viewPager2 = viewPager2;
         this.indicatorView = indicatorView;
         handler = new android.os.Handler(Looper.getMainLooper());
-        viewPager2.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(View v) {
+    }
 
+    @Override
+    public final void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        if (isLoopAuto() && !isLoopStarted && list_bean.size() > 1) {
+            startLoop();
+            isLoopStarted = true;
+        }
+        indicatorView.setCount(list_bean.size())
+                .scroll(position - 1, positionOffset)
+                .getView()
+                .invalidate();
+    }
+
+    @Override
+    public final void onPageScrollStateChanged(int state) {
+        super.onPageScrollStateChanged(state);
+        //验证当前的滑动是否结束
+        if (state == ViewPager2.SCROLL_STATE_IDLE) {
+            if (viewPager2.getCurrentItem() == 0) {
+                viewPager2.setCurrentItem(getItemCount() - 2, false);
+                return;
             }
-
-            @Override
-            public void onViewDetachedFromWindow(View v) {
-                stopLoop();
+            if (viewPager2.getCurrentItem() == getItemCount() - 1) {
+                viewPager2.setCurrentItem(1, false);
+                return;
             }
-        });
+        }
+    }
 
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (isLoopAuto() && !isLoopStarted && list_bean.size() > 1) {
-                    startLoop();
-                    isLoopStarted = true;
-                }
-                indicatorView.setCount(list_bean.size())
-                        .scroll(position - 1, positionOffset)
-                        .getView()
-                        .invalidate();
-            }
+    @Override
+    public final void onPageSelected(int position) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
+        int p=position-1;
+        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(p);
+        com.cy.loopviewpageradapter.LogUtils.log("viewPager2Holder==null",viewPager2Holder==null);
+        if (viewPager2Holder != null && p >=0 && p < list_bean.size())
+            onPageSelected(viewPager2Holder, p, list_bean.get(p));
+    }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-                //验证当前的滑动是否结束
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    if (viewPager2.getCurrentItem() == 0) {
-                        viewPager2.setCurrentItem(getItemCount()-2, false);
-                        return;
-                    }
-                    if (viewPager2.getCurrentItem() == getItemCount()-1) {
-                        viewPager2.setCurrentItem(1, false);
-                        return;
-                    }
-                }
+    @Override
+    public final void onViewDetachedFromWindow(View v) {
+        super.onViewDetachedFromWindow(v);
+        stopLoop();
+    }
 
-            }
-        });
+    @Override
+    public void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected_real", position);
     }
 
     private int getPosition(int position) {
@@ -85,6 +94,15 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
         super.onBindViewHolder(holder, getPosition(position));
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewPager2Holder holder) {
+//        int position = holder.getAdapterPosition();
+//        int p=getPosition(position);
+//        sparseArrayViewPager2Holder.remove(p);
+//        if (p < 0 || p >= list_bean.size()) return;
+//        onViewRecycled(p, list_bean.get(p));
     }
 
     @Override
@@ -128,7 +146,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     public void startLoop() {
-        if(!loopAuto)return;
+        if (!loopAuto) return;
         stopLoop();
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -155,8 +173,9 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
         timer = null;
         timerTask = null;
     }
-    public void setStartItem(){
-        viewPager2.setCurrentItem(1,false);
+
+    public void setStartItem() {
+        viewPager2.setCurrentItem(1, false);
     }
 
 }

@@ -28,76 +28,81 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     private android.os.Handler handler;
     private long periodLoop = 3000;
     private boolean isLoopStarted = false;
-    private View.OnAttachStateChangeListener onAttachStateChangeListener;
-    private ViewPager.OnPageChangeListener onPageChangeListener;
+    private int position_selected_last = -1;
 
     public ViewPagerLoopAdapter(final ViewPager viewPager, final IIndicatorView indicatorView) {
+        super(viewPager);
         this.viewPager = viewPager;
         this.indicatorView = indicatorView;
         handler = new android.os.Handler(Looper.getMainLooper());
-        onAttachStateChangeListener = new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(View v) {
+    }
 
-            }
-
-            @Override
-            public void onViewDetachedFromWindow(View v) {
-                stopLoop();
-                clear();
-                viewPager.removeOnAttachStateChangeListener(onAttachStateChangeListener);
-                viewPager.removeOnPageChangeListener(onPageChangeListener);
-            }
-        };
-        viewPager.addOnAttachStateChangeListener(onAttachStateChangeListener);
-
-        onPageChangeListener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (isLoopAuto() && !isLoopStarted && list_bean.size() > 1) {
-                    startLoop();
-                    isLoopStarted = true;
+    @Override
+    public final void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        if (isLoopAuto() && !isLoopStarted && list_bean.size() > 1) {
+            startLoop();
+            isLoopStarted = true;
+        }
+        indicatorView.setCount(list_bean.size())
+                .scroll(position-1 , positionOffset)
+                .getView()
+                .invalidate();
+    }
+    @Override
+    public final void onPageScrollStateChanged(int state) {
+        super.onPageScrollStateChanged(state);
+        switch (state) {
+            case ViewPager.SCROLL_STATE_IDLE:
+                //验证当前的滑动是否结束
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    if (viewPager.getCurrentItem() == 0) {
+                        viewPager.setCurrentItem(getCount()-2, false);
+                        return;
+                    }
+                    if (viewPager.getCurrentItem() == getCount()-1) {
+                        viewPager.setCurrentItem(1, false);
+                        return;
+                    }
                 }
-                indicatorView.setCount(list_bean.size())
-                        .scroll(position-1 , positionOffset)
-                        .getView()
-                        .invalidate();
-            }
+        }
+    }
+    @Override
+    public final void onPageSelected(int position) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
+        int p=position-1;
+        ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(p);
+        if (viewPagerHolder != null && p >=0 && p < list_bean.size())
+            onPageSelected(viewPagerHolder, p, list_bean.get(p));
+    }
 
-            @Override
-            public void onPageSelected(int position) {
+    @Override
+    public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
+        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected___real", position);
+    }
 
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                switch (state) {
-                    case ViewPager.SCROLL_STATE_IDLE:
-                        //验证当前的滑动是否结束
-                        if (state == ViewPager.SCROLL_STATE_IDLE) {
-                            if (viewPager.getCurrentItem() == 0) {
-                                viewPager.setCurrentItem(getCount()-2, false);
-                                return;
-                            }
-                            if (viewPager.getCurrentItem() == getCount()-1) {
-                                viewPager.setCurrentItem(1, false);
-                                return;
-                            }
-                        }
-                }
-            }
-        };
-        viewPager.addOnPageChangeListener(onPageChangeListener);
+    @Override
+    public final void onViewDetachedFromWindow(View v) {
+        super.onViewDetachedFromWindow(v);
+        stopLoop();
     }
 
     private int getPosition(int position) {
         return position == 0 ? list_bean.size() - 1 : position == getCount() - 1 ? 0 : position - 1;
     }
-
-    @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        return super.instantiateItem(container, getPosition(position));
+        Object object= super.instantiateItem(container, getPosition(position));
+        if (position == 1 && position_selected_last == -1) {
+            position_selected_last = position;
+            onPageSelected(position);
+        }
+        return object;
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        super.destroyItem(container, getPosition(position), object);
     }
 
     @Override
