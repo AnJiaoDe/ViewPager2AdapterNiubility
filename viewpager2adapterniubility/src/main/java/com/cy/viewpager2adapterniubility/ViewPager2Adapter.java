@@ -31,6 +31,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
         return new ViewPager2Holder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
         handleClick(holder);

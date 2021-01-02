@@ -20,7 +20,7 @@ import java.util.List;
  * @Version: 1.0
  */
 public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageAdapter<T, ViewPagerHolder> {
-    protected List<T> list_bean ;
+    protected List<T> list_bean;
 
     public ViewPagerAdapter() {
         list_bean = new ArrayList<>();
@@ -33,31 +33,34 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
 
     @NonNull
     @Override
-    public  Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        View view=LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(position,list_bean.get(position)),container,false);
-        container.addView(view,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        final ViewPagerHolder viewPagerHolder =new ViewPagerHolder(view);
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
+        View view = LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(position, list_bean.get(position)), container, false);
+        container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        final ViewPagerHolder viewPagerHolder = new ViewPagerHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick(viewPagerHolder,position,list_bean.get(position));
+                onItemClick(viewPagerHolder, position, list_bean.get(position));
             }
         });
-        bindDataToView(viewPagerHolder,position,list_bean.get(position));
+        bindDataToView(viewPagerHolder, position, list_bean.get(position));
         return new ViewPagerHolder(view);
     }
 
 
     @Override
-    public  void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView(((ViewPagerHolder) object).itemView);
+        onViewRecycled(container,position,list_bean.get(position));
     }
 
     @Override
-    public  boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return ((ViewPagerHolder) object).itemView == view;
     }
 
+    public void onViewRecycled(@NonNull ViewGroup container, int position, @NonNull T bean) {
+    }
 
     @Override
     public <W extends IPageAdapter> W getAdapter() {
