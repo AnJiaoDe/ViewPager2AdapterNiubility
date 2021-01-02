@@ -1,5 +1,6 @@
 package com.cy.viewpager2adapterniubility;
 
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import java.util.List;
  */
 public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageAdapter<T, ViewPagerHolder> {
     protected List<T> list_bean;
+    private SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
 
     public ViewPagerAdapter() {
         list_bean = new ArrayList<>();
+        sparseArrayViewPagerHolder=new SparseArray<>();
     }
 
     @Override
@@ -44,7 +47,8 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
             }
         });
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
-        return new ViewPagerHolder(view);
+        sparseArrayViewPagerHolder.put(position,viewPagerHolder);
+        return viewPagerHolder;
     }
 
 
@@ -52,7 +56,12 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView(((ViewPagerHolder) object).itemView);
         onViewRecycled(container,position,list_bean.get(position));
+        sparseArrayViewPagerHolder.remove(position);
     }
+    public ViewPagerHolder getViewPagerHolderFromPosition(int position){
+        return sparseArrayViewPagerHolder.get(position);
+    }
+
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {

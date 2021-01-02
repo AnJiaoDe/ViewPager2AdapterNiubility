@@ -2,6 +2,7 @@ package com.cy.viewpager2adapterniubility;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
