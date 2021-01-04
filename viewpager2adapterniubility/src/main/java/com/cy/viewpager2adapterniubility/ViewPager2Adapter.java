@@ -28,6 +28,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     private View.OnAttachStateChangeListener onAttachStateChangeListener;
     private ViewPager2.OnPageChangeCallback onPageChangeCallback;
     protected SparseArray<ViewPager2Holder> sparseArrayViewPager2Holder;
+    private int position_selected_last = -1;
 
     public ViewPager2Adapter(final ViewPager2 viewPager2) {
         list_bean = new ArrayList<>();//数据源
@@ -41,6 +42,8 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
             @Override
             public void onPageSelected(int position) {
+                ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
+                if (viewPager2Holder == null) return;
                 ViewPager2Adapter.this.onPageSelected(position);
             }
 
@@ -74,7 +77,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onPageSelected(int position) {
-//        LogUtils.log("onPageSelected",position);
+//        LogUtils.log("onPageSelected", position);
         ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
         if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
             ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
@@ -82,7 +85,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onPageSelected(ViewPager2Holder holder, int position, @NonNull T bean) {
-//        LogUtils.log("onPageSelected000",position);
+//        LogUtils.log("onPageSelected000", position);
     }
 
     public void onPageScrollStateChanged(int state) {
@@ -119,8 +122,13 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
         sparseArrayViewPager2Holder.put(position, holder);
+//        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         handleClick(holder);
         bindDataToView(holder, position, list_bean.get(position));
+        if (position_selected_last == -1) {
+            position_selected_last = position;
+            onPageSelected(position);
+        }
     }
 
     @Override
