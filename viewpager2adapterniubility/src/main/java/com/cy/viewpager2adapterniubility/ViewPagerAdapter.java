@@ -118,11 +118,11 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
             }
         });
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
+        sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         if (position == 0 && position_selected_last == -1) {
             position_selected_last = position;
             onPageSelected(position);
         }
-        sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         return viewPagerHolder;
     }
 
