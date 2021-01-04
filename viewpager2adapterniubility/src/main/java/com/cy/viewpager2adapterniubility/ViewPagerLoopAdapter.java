@@ -1,6 +1,7 @@
 package com.cy.viewpager2adapterniubility;
 
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,7 +29,7 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     private android.os.Handler handler;
     private long periodLoop = 3000;
     private boolean isLoopStarted = false;
-    private int position_selected_last = -1;
+//    private int position_selected_last = -1;
 
     public ViewPagerLoopAdapter(final ViewPager viewPager, final IIndicatorView indicatorView) {
         super(viewPager);
@@ -45,10 +46,11 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
             isLoopStarted = true;
         }
         indicatorView.setCount(list_bean.size())
-                .scroll(position-1 , positionOffset)
+                .scroll(position - 1, positionOffset)
                 .getView()
                 .invalidate();
     }
+
     @Override
     public final void onPageScrollStateChanged(int state) {
         super.onPageScrollStateChanged(state);
@@ -57,26 +59,30 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
                 //验证当前的滑动是否结束
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     if (viewPager.getCurrentItem() == 0) {
-                        viewPager.setCurrentItem(getCount()-2, false);
+                        viewPager.setCurrentItem(getCount() - 2, false);
                         return;
                     }
-                    if (viewPager.getCurrentItem() == getCount()-1) {
+                    if (viewPager.getCurrentItem() == getCount() - 1) {
                         viewPager.setCurrentItem(1, false);
                         return;
                     }
                 }
         }
     }
+
     @Override
     public final void onPageSelected(int position) {
-        int p=position-1;
-        ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(p);
-        if (viewPagerHolder != null && p >=0 && p < list_bean.size())
-            onPageSelected(viewPagerHolder, p, list_bean.get(p));
+//        LogUtils.log("onPageSelected", position);
+//        int p=position-1;
+//        ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(p);
+//        if (viewPagerHolder != null && p >=0 && p < list_bean.size())
+//            onPageSelected(viewPagerHolder, p, list_bean.get(p));
+//        super.onPageSelected(position - 1);
     }
 
     @Override
-    public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
+    public final void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
+//        LogUtils.log("onPageSelected000", position);
     }
 
     @Override
@@ -88,14 +94,28 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     private int getPosition(int position) {
         return position == 0 ? list_bean.size() - 1 : position == getCount() - 1 ? 0 : position - 1;
     }
+
     @Override
     public final Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Object object= super.instantiateItem(container, getPosition(position));
-        if (position == 1 && position_selected_last == -1) {
-            position_selected_last = position;
-            onPageSelected(position);
-        }
-        return object;
+       return super.instantiateItem(container,getPosition(position));
+//        final int p = getPosition(position);
+//        View view = LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(p, list_bean.get(p)), container, false);
+//        container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//        final ViewPagerHolder viewPagerHolder = new ViewPagerHolder(view);
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onItemClick(viewPagerHolder, p, list_bean.get(p));
+//            }
+//        });
+//        bindDataToView(viewPagerHolder, p, list_bean.get(p));
+//        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", p);
+//        sparseArrayViewPagerHolder.put(p, viewPagerHolder);
+//        if (position_selected_last == -1) {
+//            position_selected_last = p;
+//            onPageSelected(position);
+//        }
+//        return viewPagerHolder;
     }
 
     @Override
@@ -126,7 +146,7 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     }
 
     public void startLoop() {
-        if(!loopAuto)return;
+        if (!loopAuto) return;
         stopLoop();
         timer = new Timer();
         timerTask = new TimerTask() {

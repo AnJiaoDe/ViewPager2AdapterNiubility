@@ -71,10 +71,9 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
 
     /**
      * ViewPager2,因为在从最后一页切换到第一页的时候，onPageSelected会回调3次，所以，废弃
-     * @param v
      */
-//    @Override
-//    public final void onPageSelected(int position) {
+    @Override
+    public final void onPageSelected(int position) {
 //        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
 //        final int p = position - 1;
 //        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(p);
@@ -92,7 +91,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
 //        com.cy.loopviewpageradapter.LogUtils.log("onPageSelectedviewPager2Holder==null", viewPager2Holder == null);
 //        if (p >= 0 && p < list_bean.size())
 //            onPageSelected(viewPager2Holder, p, list_bean.get(p));
-//    }
+    }
 
     @Override
     public final void onViewDetachedFromWindow(View v) {

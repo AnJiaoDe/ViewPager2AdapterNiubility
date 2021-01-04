@@ -74,6 +74,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onPageSelected(int position) {
+//        LogUtils.log("onPageSelected",position);
         ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
         if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
             ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
@@ -81,7 +82,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onPageSelected(ViewPager2Holder holder, int position, @NonNull T bean) {
-
+//        LogUtils.log("onPageSelected000",position);
     }
 
     public void onPageScrollStateChanged(int state) {

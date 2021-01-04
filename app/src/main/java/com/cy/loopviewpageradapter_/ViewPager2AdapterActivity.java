@@ -40,5 +40,8 @@ public class ViewPager2AdapterActivity extends AppCompatActivity {
 
         viewPager2Adapter.add(new PageBean(R.drawable.pic1));
         viewPager2Adapter.add(new PageBean(R.drawable.pic2));
+
+        viewPager2.setCurrentItem(1,false);
+
     }
 }

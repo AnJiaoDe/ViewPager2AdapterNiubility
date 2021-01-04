@@ -1,5 +1,6 @@
 package com.cy.viewpager2adapterniubility;
 
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,8 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
 
             @Override
             public void onPageSelected(int position) {
+                ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+                if (viewPagerHolder == null) return;
                 ViewPagerAdapter.this.onPageSelected(position);
             }
 
@@ -81,9 +84,10 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     }
 
     @Override
-    public void onPageSelected(int position) {
+    public void  onPageSelected(int position) {
+//        LogUtils.log("onPageSelected", position);
         ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
-        if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
+        if (viewPagerHolder!=null&&position >= 0 && position < list_bean.size())
             ViewPagerAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
     }
 
@@ -98,6 +102,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     }
 
     public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
+//        LogUtils.log("onPageSelected000", position);
     }
 
     @Override
@@ -118,8 +123,9 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
             }
         });
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
+//        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
-        if (position == 0 && position_selected_last == -1) {
+        if (position_selected_last == -1) {
             position_selected_last = position;
             onPageSelected(position);
         }
