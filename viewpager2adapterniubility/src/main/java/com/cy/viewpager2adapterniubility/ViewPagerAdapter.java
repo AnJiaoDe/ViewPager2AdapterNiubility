@@ -82,7 +82,6 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
 
     @Override
     public void onPageSelected(int position) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
         ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
         if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
             ViewPagerAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));

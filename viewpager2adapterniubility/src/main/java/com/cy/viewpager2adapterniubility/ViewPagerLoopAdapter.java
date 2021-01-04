@@ -69,7 +69,6 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     }
     @Override
     public final void onPageSelected(int position) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
         int p=position-1;
         ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(p);
         if (viewPagerHolder != null && p >=0 && p < list_bean.size())
@@ -78,7 +77,6 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
 
     @Override
     public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected___real", position);
     }
 
     @Override
@@ -91,7 +89,7 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
         return position == 0 ? list_bean.size() - 1 : position == getCount() - 1 ? 0 : position - 1;
     }
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public final Object instantiateItem(@NonNull ViewGroup container, int position) {
         Object object= super.instantiateItem(container, getPosition(position));
         if (position == 1 && position_selected_last == -1) {
             position_selected_last = position;
@@ -101,12 +99,12 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
     }
 
     @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    public final void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         super.destroyItem(container, getPosition(position), object);
     }
 
     @Override
-    public int getCount() {
+    public final int getCount() {
         if (list_bean.size() <= 1) return list_bean.size();
         return list_bean.size() + 2;
     }

@@ -1,6 +1,7 @@
 package com.cy.viewpager2adapterniubility;
 
 import android.os.Looper;
+import android.util.SparseArray;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.security.auth.callback.Callback;
 
 /**
  * @Description:
@@ -66,15 +69,30 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
         }
     }
 
-    @Override
-    public final void onPageSelected(int position) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
-        int p=position-1;
-        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(p);
-        com.cy.loopviewpageradapter.LogUtils.log("viewPager2Holder==null",viewPager2Holder==null);
-        if (viewPager2Holder != null && p >=0 && p < list_bean.size())
-            onPageSelected(viewPager2Holder, p, list_bean.get(p));
-    }
+    /**
+     * ViewPager2,因为在从最后一页切换到第一页的时候，onPageSelected会回调3次，所以，废弃
+     * @param v
+     */
+//    @Override
+//    public final void onPageSelected(int position) {
+//        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
+//        final int p = position - 1;
+//        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(p);
+//        if (viewPager2Holder == null) {
+//            sparseArrayCallbackViewPager2Holder.put(p, new CallbackViewPager2Holder() {
+//                @Override
+//                public void onBindViewHolder(int position, ViewPager2Holder viewPager2Holder) {
+//                    if (p >= 0 && p < list_bean.size())
+//                        onPageSelected(viewPager2Holder, p, list_bean.get(p));
+//                    sparseArrayCallbackViewPager2Holder.remove(p);
+//                }
+//            });
+//            return;
+//        }
+//        com.cy.loopviewpageradapter.LogUtils.log("onPageSelectedviewPager2Holder==null", viewPager2Holder == null);
+//        if (p >= 0 && p < list_bean.size())
+//            onPageSelected(viewPager2Holder, p, list_bean.get(p));
+//    }
 
     @Override
     public final void onViewDetachedFromWindow(View v) {
@@ -83,8 +101,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     @Override
-    public void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected_real", position);
+    public final void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
     }
 
     private int getPosition(int position) {
@@ -92,17 +109,17 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
+    public final void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
         super.onBindViewHolder(holder, getPosition(position));
     }
 
     @Override
-    public void onViewRecycled(@NonNull ViewPager2Holder holder) {
-//        int position = holder.getAdapterPosition();
-//        int p=getPosition(position);
-//        sparseArrayViewPager2Holder.remove(p);
-//        if (p < 0 || p >= list_bean.size()) return;
-//        onViewRecycled(p, list_bean.get(p));
+    public final void onViewRecycled(@NonNull ViewPager2Holder holder) {
+        int position = holder.getAdapterPosition();
+        int p=getPosition(position);
+        sparseArrayViewPager2Holder.remove(p);
+        if (p < 0 || p >= list_bean.size()) return;
+        onViewRecycled(p, list_bean.get(p));
     }
 
     @Override
@@ -124,7 +141,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         if (list_bean.size() <= 1) return list_bean.size();
         return list_bean.size() + 2;
     }
