@@ -74,7 +74,6 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onPageSelected(int position) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
         ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
         if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
             ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
@@ -118,7 +117,6 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
-        com.cy.loopviewpageradapter.LogUtils.log("onPageSelectedonBindViewHolder", position);
         sparseArrayViewPager2Holder.put(position, holder);
         handleClick(holder);
         bindDataToView(holder, position, list_bean.get(position));
