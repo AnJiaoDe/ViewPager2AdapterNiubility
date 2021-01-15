@@ -57,15 +57,13 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
         switch (state) {
             case ViewPager.SCROLL_STATE_IDLE:
                 //验证当前的滑动是否结束
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    if (viewPager.getCurrentItem() == 0) {
-                        viewPager.setCurrentItem(getCount() - 2, false);
-                        return;
-                    }
-                    if (viewPager.getCurrentItem() == getCount() - 1) {
-                        viewPager.setCurrentItem(1, false);
-                        return;
-                    }
+                if (viewPager.getCurrentItem() == 0) {
+                    viewPager.setCurrentItem(getCount() - 2, false);
+                    return;
+                }
+                if (viewPager.getCurrentItem() == getCount() - 1) {
+                    viewPager.setCurrentItem(1, false);
+                    return;
                 }
         }
     }
@@ -97,7 +95,7 @@ public abstract class ViewPagerLoopAdapter<T> extends ViewPagerAdapter<T> {
 
     @Override
     public final Object instantiateItem(@NonNull ViewGroup container, int position) {
-       return super.instantiateItem(container,getPosition(position));
+        return super.instantiateItem(container, getPosition(position));
 //        final int p = getPosition(position);
 //        View view = LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(p, list_bean.get(p)), container, false);
 //        container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
