@@ -190,6 +190,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
         return (W) this;
     }
 
+
     /**
      * @param list_bean
      */
@@ -296,7 +297,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      */
 
     public <W extends IPageAdapter> W clearAddNoNotify(List<T> beans) {
-        list_bean.clear();
+        clearNoNotify();
         list_bean.addAll(beans);
         return (W) this;
     }
@@ -307,7 +308,8 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      */
 
     public <W extends IPageAdapter> W clearAddNoNotify(T bean) {
-        clearAdd(bean);
+        clearNoNotify();
+        list_bean.add(bean);
         return (W) this;
     }
 
@@ -316,8 +318,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      */
 
     public <W extends IPageAdapter> W clearAdd(T bean) {
-        clearNoNotify();
-        addNoNotify(bean);
+        clearAddNoNotify(bean);
         notifyDataSetChanged();
         return (W) this;
     }

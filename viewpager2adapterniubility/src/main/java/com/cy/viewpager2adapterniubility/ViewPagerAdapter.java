@@ -84,10 +84,10 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     }
 
     @Override
-    public void  onPageSelected(int position) {
+    public void onPageSelected(int position) {
 //        LogUtils.log("onPageSelected", position);
         ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
-        if (viewPagerHolder!=null&&position >= 0 && position < list_bean.size())
+        if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
             ViewPagerAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
     }
 
@@ -125,7 +125,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
 //        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
-        if (position_selected_last==-1) {
+        if (position_selected_last == -1) {
             position_selected_last = position;
             onPageSelected(position);
         }
@@ -150,6 +150,10 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     @Override
     public <W extends IPageAdapter> W getAdapter() {
         return (W) this;
+    }
+
+    public SparseArray<ViewPagerHolder> getSparseArrayIViewHolder() {
+        return sparseArrayViewPagerHolder;
     }
 
     @Override
@@ -262,23 +266,44 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     }
 
     /**
+     * 清空list
+     */
+    @Override
+    public <W extends IPageAdapter> W clearNoNotify() {
+        list_bean.clear();
+        sparseArrayViewPagerHolder.clear();
+        position_selected_last = -1;
+        return (W) this;
+    }
+
+    /**
+     * 清空list
+     */
+    @Override
+    public <W extends IPageAdapter> W clear() {
+        clearNoNotify();
+        notifyDataSetChanged();
+        return (W) this;
+    }
+
+    /**
      * 先清空后添加List
      */
 
     @Override
     public <W extends IPageAdapter> W clearAddNoNotify(List<T> beans) {
-        list_bean.clear();
+        clearNoNotify();
         list_bean.addAll(beans);
         return (W) this;
     }
-
 
     /**
      * 先清空后添加
      */
     @Override
     public <W extends IPageAdapter> W clearAddNoNotify(T bean) {
-        clearAdd(bean);
+        clearNoNotify();
+        list_bean.add(bean);
         return (W) this;
     }
 
@@ -287,8 +312,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
      */
     @Override
     public <W extends IPageAdapter> W clearAdd(T bean) {
-        clearNoNotify();
-        add(bean);
+        clearAddNoNotify(bean);
         notifyDataSetChanged();
         return (W) this;
     }
@@ -302,6 +326,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
         notifyDataSetChanged();
         return (W) this;
     }
+
 
     /**
      * 添加List到position 0
@@ -322,26 +347,6 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
         return (W) this;
     }
 
-    /**
-     * 清空list
-     */
-    @Override
-    public <W extends IPageAdapter> W clearNoNotify() {
-        list_bean.clear();
-        sparseArrayViewPagerHolder.clear();
-        position_selected_last=-1;
-        return (W) this;
-    }
-
-    /**
-     * 清空list
-     */
-    @Override
-    public <W extends IPageAdapter> W clear() {
-        clearNoNotify();
-        notifyDataSetChanged();
-        return (W) this;
-    }
 
     @Override
     public <W extends IPageAdapter> W setNoNotify(int index, T bean) {

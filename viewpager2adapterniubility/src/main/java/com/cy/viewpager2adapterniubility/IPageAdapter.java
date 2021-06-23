@@ -1,5 +1,6 @@
 package com.cy.viewpager2adapterniubility;
 
+import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public interface IPageAdapter<T, V extends IViewHolder> {
     public int getItemLayoutID(int position, T bean);
 
     public void onItemClick(V holder, int position, T bean);
+
 
     /**
      * @param list_bean
