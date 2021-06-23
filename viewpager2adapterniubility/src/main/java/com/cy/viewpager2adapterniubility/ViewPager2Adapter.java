@@ -125,7 +125,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 //        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         handleClick(holder);
         bindDataToView(holder, position, list_bean.get(position));
-        if (position_selected_last == -1) {
+        if (position_selected_last==-1) {
             position_selected_last = position;
             onPageSelected(position);
         }
@@ -358,6 +358,8 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      */
     public <W extends IPageAdapter> W clearNoNotify() {
         list_bean.clear();
+        sparseArrayViewPager2Holder.clear();
+        position_selected_last=-1;
         return (W) this;
     }
 
@@ -365,9 +367,8 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      * 清空list
      */
     public <W extends IPageAdapter> W clear() {
-        list_bean.clear();
+        clearNoNotify();
         notifyDataSetChanged();
-        sparseArrayViewPager2Holder.clear();
         return (W) this;
     }
 

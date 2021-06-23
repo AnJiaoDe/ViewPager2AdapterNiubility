@@ -125,7 +125,7 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
 //        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
-        if (position_selected_last == -1) {
+        if (position_selected_last==-1) {
             position_selected_last = position;
             onPageSelected(position);
         }
@@ -328,6 +328,8 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     @Override
     public <W extends IPageAdapter> W clearNoNotify() {
         list_bean.clear();
+        sparseArrayViewPagerHolder.clear();
+        position_selected_last=-1;
         return (W) this;
     }
 
@@ -336,9 +338,8 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
      */
     @Override
     public <W extends IPageAdapter> W clear() {
-        list_bean.clear();
+        clearNoNotify();
         notifyDataSetChanged();
-        sparseArrayViewPagerHolder.clear();
         return (W) this;
     }
 
