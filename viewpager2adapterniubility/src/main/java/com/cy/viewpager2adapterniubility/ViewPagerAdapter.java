@@ -184,7 +184,8 @@ public abstract class ViewPagerAdapter<T> extends PagerAdapter implements IPageA
     @Override
     public <W extends IPageAdapter> W remove(int position) {
         removeNoNotify(position);
-        notifyDataSetChanged();
+        viewPager.setAdapter(this);
+        viewPager.setCurrentItem(position);
         return (W) this;
     }
 

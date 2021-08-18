@@ -37,11 +37,21 @@ public class ViewPagerNoScroll extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return canScroll && super.onInterceptTouchEvent(ev);
+        try {
+            return canScroll && super.onInterceptTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return canScroll && super.onTouchEvent(ev);
+        try {
+            return canScroll && super.onTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }
