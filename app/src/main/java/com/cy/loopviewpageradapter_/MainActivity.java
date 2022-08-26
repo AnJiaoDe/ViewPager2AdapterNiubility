@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cy.viewpager2adapterniubility.R;
+import com.cy.viewpager2adapterniubility.ViewPagerHolder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,5 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ViewPager2LoopAdapterActivity.class));
             }
         });
+        //后面有时间，做自定义VP，且轮播，
     }
 }

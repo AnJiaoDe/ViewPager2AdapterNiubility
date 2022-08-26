@@ -72,8 +72,8 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     /**
      * ViewPager2,因为在从最后一页切换到第一页的时候，onPageSelected会回调3次，所以，废弃
      */
-    @Override
-    public final void onPageSelected(int position) {
+//    @Override
+//    public final void onPageSelected(int position) {
 //        com.cy.loopviewpageradapter.LogUtils.log("onPageSelected", position);
 //        final int p = position - 1;
 //        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(p);
@@ -91,17 +91,17 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
 //        com.cy.loopviewpageradapter.LogUtils.log("onPageSelectedviewPager2Holder==null", viewPager2Holder == null);
 //        if (p >= 0 && p < list_bean.size())
 //            onPageSelected(viewPager2Holder, p, list_bean.get(p));
+//    }
+    @Override
+    public  void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
     }
-
     @Override
     public final void onViewDetachedFromWindow(View v) {
         super.onViewDetachedFromWindow(v);
         stopLoop();
     }
 
-    @Override
-    public final void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
-    }
+
 
     private int getPosition(int position) {
         return position == 0 ? list_bean.size() - 1 : position == getItemCount() - 1 ? 0 : position - 1;
@@ -143,6 +143,11 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     public final int getItemCount() {
         if (list_bean.size() <= 1) return list_bean.size();
         return list_bean.size() + 2;
+    }
+
+    @Override
+    public int getDataCount() {
+        return list_bean.size();
     }
 
     public long getPeriodLoop() {

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
  * @UpdateRemark:
  * @Version:
  */
-public class ViewPager2NoConflict extends FrameLayout {
+public class ViewPager2NoConflict extends RelativeLayout {
     private float downX, downY;
     private float moveX;
     private float moveY;

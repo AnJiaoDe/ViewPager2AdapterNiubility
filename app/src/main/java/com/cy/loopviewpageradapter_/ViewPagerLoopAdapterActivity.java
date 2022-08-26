@@ -1,12 +1,15 @@
 package com.cy.loopviewpageradapter_;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cy.viewpager2adapterniubility.LogUtils;
 import com.cy.viewpager2adapterniubility.R;
 import com.cy.viewpager2adapterniubility.SimpleIndicatorView;
 import com.cy.viewpager2adapterniubility.ViewPagerHolder;
@@ -23,6 +26,11 @@ public class ViewPagerLoopAdapterActivity extends AppCompatActivity {
         SimpleIndicatorView simpleIndicatorView = findViewById(R.id.indicator);
         final ViewPagerLoopAdapter<PageBean> viewPageAdapter = new ViewPagerLoopAdapter<PageBean>(viewPager, simpleIndicatorView) {
             @Override
+            public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull PageBean bean) {
+                super.onPageSelected(viewPagerHolder, position, bean);
+                LogUtils.log("onPageSelected ViewPagerLoopAdapter", position + "");
+            }
+            @Override
             public void bindDataToView(ViewPagerHolder holder, int position, PageBean bean) {
                 ImageView imageView = holder.itemView.findViewById(R.id.iv);
                 imageView.setImageResource(bean.getResID());
@@ -38,12 +46,13 @@ public class ViewPagerLoopAdapterActivity extends AppCompatActivity {
                 Toast.makeText(ViewPagerLoopAdapterActivity.this, "点击" + position, Toast.LENGTH_SHORT).show();
             }
         };
+        viewPageAdapter.setLoopAuto(false);
 
         viewPager.setAdapter(viewPageAdapter);
 
         viewPageAdapter.addNoNotify(new PageBean(R.drawable.pic1));
         viewPageAdapter.addNoNotify(new PageBean(R.drawable.pic2));
-        viewPageAdapter.addNoNotify(new PageBean(R.drawable.pic3));
+//        viewPageAdapter.addNoNotify(new PageBean(R.drawable.pic3));
         viewPageAdapter.add(new PageBean(R.drawable.pic4));
 
     }

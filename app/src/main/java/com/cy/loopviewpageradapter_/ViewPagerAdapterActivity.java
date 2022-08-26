@@ -1,9 +1,11 @@
 package com.cy.loopviewpageradapter_;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,6 +22,13 @@ public class ViewPagerAdapterActivity extends AppCompatActivity {
 
         ViewPager viewPager=findViewById(R.id.vp);
         ViewPagerAdapter<PageBean> viewPagerAdapter =new ViewPagerAdapter<PageBean>(viewPager) {
+
+            @Override
+            public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull PageBean bean) {
+                super.onPageSelected(viewPagerHolder, position, bean);
+                Log.e("onPageSelected",position+"");
+            }
+
             @Override
             public void bindDataToView(ViewPagerHolder holder, int position, PageBean bean) {
                 ImageView imageView=holder.itemView.findViewById(R.id.iv);
@@ -38,9 +47,11 @@ public class ViewPagerAdapterActivity extends AppCompatActivity {
         };
         viewPager.setAdapter(viewPagerAdapter);
 
-        viewPagerAdapter.add(new PageBean(R.drawable.pic1));
-        viewPagerAdapter.add(new PageBean(R.drawable.pic2));
+        viewPagerAdapter.addNoNotify(new PageBean(R.drawable.pic1));
+        viewPagerAdapter.addNoNotify(new PageBean(R.drawable.pic2));
+        viewPagerAdapter.addNoNotify(new PageBean(R.drawable.pic3));
+        viewPagerAdapter.add(new PageBean(R.drawable.pic4));
 
-        viewPager.setCurrentItem(1,false);
+//        viewPager.setCurrentItem(1,false);
     }
 }

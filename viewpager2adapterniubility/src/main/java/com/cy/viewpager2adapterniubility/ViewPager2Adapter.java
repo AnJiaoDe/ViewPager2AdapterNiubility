@@ -43,8 +43,8 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
             @Override
             public void onPageSelected(int position) {
                 ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
-                if (viewPager2Holder == null) return;
-                ViewPager2Adapter.this.onPageSelected(position);
+                if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
+                    ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
             }
 
             @Override
@@ -75,13 +75,6 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
 
     }
 
-    @Override
-    public void onPageSelected(int position) {
-//        LogUtils.log("onPageSelected", position);
-        ViewPager2Holder viewPager2Holder = getViewPagerHolderFromPosition(position);
-        if (viewPager2Holder != null && position >= 0 && position < list_bean.size())
-            ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
-    }
 
     @Override
     public void onPageSelected(ViewPager2Holder holder, int position, @NonNull T bean) {
@@ -118,16 +111,15 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     public ViewPager2Holder getViewPagerHolderFromPosition(int position) {
         return sparseArrayViewPager2Holder.get(position);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
         sparseArrayViewPager2Holder.put(position, holder);
 //        LogUtils.log("onPageSelectedhavesparseArrayViewPagerHolder.put", position);
         handleClick(holder);
         bindDataToView(holder, position, list_bean.get(position));
-        if (position_selected_last==-1) {
+        if (position_selected_last == -1) {
             position_selected_last = position;
-            onPageSelected(position);
+            onPageSelected(holder, position, list_bean.get(position));
         }
     }
 
@@ -141,6 +133,12 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     public int getItemCount() {
         return list_bean.size();
     }
+
+    @Override
+    public int getDataCount() {
+        return getItemCount();
+    }
+
 
     public List<T> getList_bean() {
         return list_bean;
@@ -360,7 +358,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     public <W extends IPageAdapter> W clearNoNotify() {
         list_bean.clear();
         sparseArrayViewPager2Holder.clear();
-        position_selected_last=-1;
+        position_selected_last = -1;
         return (W) this;
     }
 

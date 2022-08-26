@@ -24,8 +24,7 @@ public class ViewPager2LoopAdapterActivity extends AppCompatActivity {
         final ViewPager2LoopAdapter<PageBean> viewPage2Adapter=new ViewPager2LoopAdapter<PageBean>(viewPager2,simpleIndicatorView) {
             @Override
             public void bindDataToView(ViewPager2Holder holder, int position, PageBean bean) {
-                ImageView imageView=holder.itemView.findViewById(R.id.iv);
-                imageView.setImageResource(bean.getResID());
+                holder.viewPagerHolder.setImageResource(R.id.iv,bean.getResID());
             }
 
             @Override

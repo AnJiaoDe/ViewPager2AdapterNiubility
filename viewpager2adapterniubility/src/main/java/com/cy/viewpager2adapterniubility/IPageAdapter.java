@@ -1,6 +1,7 @@
 package com.cy.viewpager2adapterniubility;
 
 import android.util.SparseArray;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,9 @@ public interface IPageAdapter<T, V extends IViewHolder> {
 
     public List<T> getList_bean();
 
-    public void onPageSelected(int position);
+    public int getDataCount();
+
+//    public void onPageSelected(int position);
 
     public void onPageSelected(V holder, int position, @NonNull T bean);
 
@@ -31,6 +34,8 @@ public interface IPageAdapter<T, V extends IViewHolder> {
     public void onPageScrollStateChanged(int state);
 
     public void onViewRecycled(int position, @NonNull T bean);
+
+    public void onViewDetachedFromWindow(View v);
 
     public V getViewPagerHolderFromPosition(int position);
 
