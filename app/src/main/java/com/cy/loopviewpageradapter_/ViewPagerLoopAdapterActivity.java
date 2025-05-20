@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.cy.viewpager2adapterniubility.LogUtils;
 import com.cy.viewpager2adapterniubility.R;
 import com.cy.viewpager2adapterniubility.SimpleIndicatorView;
 import com.cy.viewpager2adapterniubility.ViewPagerHolder;
@@ -28,8 +27,15 @@ public class ViewPagerLoopAdapterActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull PageBean bean) {
                 super.onPageSelected(viewPagerHolder, position, bean);
-                LogUtils.log("onPageSelected ViewPagerLoopAdapter", position + "");
+                LogUtils.log("onPageSelected ", position + "");
             }
+
+            @Override
+            public void onPageScrolled(int p, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(p, positionOffset, positionOffsetPixels);
+                LogUtils.log("onPageScrolled ", p + ">>>"+positionOffset+">>>"+positionOffsetPixels);
+            }
+
             @Override
             public void bindDataToView(ViewPagerHolder holder, int position, PageBean bean) {
                 ImageView imageView = holder.itemView.findViewById(R.id.iv);

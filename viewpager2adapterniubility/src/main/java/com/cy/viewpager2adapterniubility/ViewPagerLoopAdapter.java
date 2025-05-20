@@ -61,7 +61,6 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
             public void onPageSelected(int p) {
 //                if (p == 0 || p == getCount() - 1) return;
                 int position = getPosition(p);
-                LogUtils.log("onPageSelected", position + "");
 
                 ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
                 if (viewPagerHolder == null) {
@@ -79,7 +78,7 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
     }
 
     @Override
-    public final void onPageScrolled(int p, float positionOffset, int positionOffsetPixels) {
+    public  void onPageScrolled(int p, float positionOffset, int positionOffsetPixels) {
         if (isLoopAuto() && !isLoopStarted && list_bean.size() > 1) {
             startLoop();
             isLoopStarted = true;
@@ -135,7 +134,6 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
     public final Object instantiateItem(@NonNull ViewGroup container, final int p) {
 //        LogUtils.log("instantiateItem", p);
         final int position = getPosition(p);
-        LogUtils.log("instantiateItem getPosition", position);
         View view = LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(position, list_bean.get(position)), container, false);
         container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         final ViewPagerHolder viewPagerHolder = new ViewPagerHolder(view);
@@ -164,7 +162,6 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
     public final void destroyItem(@NonNull ViewGroup container, int p, @NonNull Object object) {
 //        LogUtils.log("destroyItem", p);
         final int position = getPosition(p);
-        LogUtils.log("destroyItem getPosition", position);
         container.removeView((View) object);
         sparseArrayViewPagerHolder.remove(position);
         if (position < 0 || position >= list_bean.size()) return;

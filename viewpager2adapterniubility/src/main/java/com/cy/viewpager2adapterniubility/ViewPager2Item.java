@@ -1,4 +1,4 @@
-package com.cy.loopviewpageradapter;
+package com.cy.viewpager2adapterniubility;
 
 import android.content.Context;
 import android.os.SystemClock;

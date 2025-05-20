@@ -67,7 +67,6 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        LogUtils.log("instantiateItem", position);
         View view = LayoutInflater.from(container.getContext()).inflate(getItemLayoutID(position, list_bean.get(position)), container, false);
         container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         final ViewPagerHolder viewPagerHolder = new ViewPagerHolder(view);
@@ -96,7 +95,6 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
      */
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        LogUtils.log("instantiateItem  destroyItem", position);
         container.removeView((View) object);
         sparseArrayViewPagerHolder.remove(position);
         if (position < 0 || position >= list_bean.size()) return;

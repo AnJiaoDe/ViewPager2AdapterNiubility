@@ -30,6 +30,30 @@ public class ViewPagerAdapterActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                LogUtils.log("onPageScrolled position",position);
+                LogUtils.log("onPageScrolled  positionOffset",positionOffset);
+                LogUtils.log("onPageScrolled    positionOffsetPixels",positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_IDLE:
+                        LogUtils.log("SCROLL_STATE_IDLE");
+                        break;
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        LogUtils.log("SCROLL_STATE_DRAGGING");
+                        break;
+                    case ViewPager.SCROLL_STATE_SETTLING:
+                        LogUtils.log("SCROLL_STATE_SETTLING");
+                        break;
+                }
+            }
+
+            @Override
             public void bindDataToView(ViewPagerHolder holder, int position, PageBean bean) {
                 ImageView imageView=holder.itemView.findViewById(R.id.iv);
                 imageView.setImageResource(bean.getResID());

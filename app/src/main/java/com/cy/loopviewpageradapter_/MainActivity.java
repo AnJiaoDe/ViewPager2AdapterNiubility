@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ViewPager2LoopAdapterActivity.class));
             }
         });
+        findViewById(R.id.vp2_looper).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ViewPager2LoopAdapterActivity.class));
+            }
+        });
         //后面有时间，做自定义VP，且轮播，
     }
 }

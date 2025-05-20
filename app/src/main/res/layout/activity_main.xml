@@ -30,5 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="viewpager2_looper" />
+    <Button
+        android:id="@+id/vp_dute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="仿读特APP" />
 
 </LinearLayout>
