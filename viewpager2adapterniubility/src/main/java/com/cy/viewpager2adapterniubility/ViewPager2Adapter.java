@@ -152,7 +152,10 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                viewPager2 holder.getAdapterPosition() position 咋整，recyclerview 版本咋整  烦躁
                 int position = holder.getAdapterPosition();
+                //场景一旦复杂，各种remove 各种add 各种notify，各种multiadapter，很容易数组越界，故而必须判断
+                if (position < 0 || position >= list_bean.size()) return;
                 onItemClick(holder, position, list_bean.get(position));
             }
         });
