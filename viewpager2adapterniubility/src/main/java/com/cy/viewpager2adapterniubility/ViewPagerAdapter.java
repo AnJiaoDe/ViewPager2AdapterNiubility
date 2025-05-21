@@ -48,11 +48,6 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
 
     }
 
-    @Override
-    public void onViewDetachedFromWindow(View v) {
-
-    }
-
 
     public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
 //        LogUtils.log("onPageSelected000", position);
@@ -88,7 +83,6 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
 
     /**
      * 有且只有3个item同时存在
-     *
      * @param container
      * @param position
      * @param object

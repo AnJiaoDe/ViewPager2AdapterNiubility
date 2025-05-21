@@ -1,6 +1,7 @@
 package com.cy.loopviewpageradapter_;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView
         findViewById(R.id.vp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

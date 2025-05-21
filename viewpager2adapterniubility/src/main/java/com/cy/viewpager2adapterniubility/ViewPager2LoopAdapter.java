@@ -95,12 +95,12 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     @Override
     public  void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
     }
+
     @Override
-    public final void onViewDetachedFromWindow(View v) {
-        super.onViewDetachedFromWindow(v);
+    public void onViewPagerDetachedFromWindow(View v) {
+        super.onViewPagerDetachedFromWindow(v);
         stopLoop();
     }
-
 
 
     private int getPosition(int position) {
@@ -112,14 +112,14 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
         super.onBindViewHolder(holder, getPosition(position));
     }
 
-    @Override
-    public final void onViewRecycled(@NonNull ViewPager2Holder holder) {
-        int position = holder.getAdapterPosition();
-        int p=getPosition(position);
-        sparseArrayViewPager2Holder.remove(p);
-        if (p < 0 || p >= list_bean.size()) return;
-        onViewRecycled(p, list_bean.get(p));
-    }
+//    @Override
+//    public final void onViewRecycled(@NonNull ViewPager2Holder holder) {
+//        int position = holder.getAdapterPosition();
+//        int p=getPosition(position);
+//        sparseArrayViewPager2Holder.remove(p);
+//        if (p < 0 || p >= list_bean.size()) return;
+//        onViewRecycled(p, list_bean.get(p));
+//    }
 
     @Override
     public int getItemViewType(int position) {

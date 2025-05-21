@@ -1,5 +1,6 @@
 package com.cy.loopviewpageradapter_;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,6 +23,11 @@ public class ViewPager2AdapterActivity extends AppCompatActivity {
 //        ViewPager2 viewPager2=findViewById(R.id.vp2);
         ViewPager2NoConflict viewPager2NoConflict=findViewById(R.id.ViewPager2NoConflict);
         ViewPager2Adapter<PageBean> viewPager2Adapter =new ViewPager2Adapter<PageBean>(viewPager2NoConflict.getViewPager2()) {
+            @Override
+            public void onPageSelected(ViewPager2Holder holder, int position, @NonNull PageBean bean) {
+                super.onPageSelected(holder, position, bean);
+            }
+
             @Override
             public void bindDataToView(ViewPager2Holder holder, int position, PageBean bean) {
                 holder.viewPagerHolder.setImageResource(R.id.iv,bean.getResID());
