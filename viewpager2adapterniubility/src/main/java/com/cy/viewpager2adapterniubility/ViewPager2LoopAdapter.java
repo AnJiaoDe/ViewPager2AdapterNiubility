@@ -93,7 +93,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
 //            onPageSelected(viewPager2Holder, p, list_bean.get(p));
 //    }
     @Override
-    public  void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
+    public  final void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
     }
 
     @Override

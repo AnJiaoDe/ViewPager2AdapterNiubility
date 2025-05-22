@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cy.viewpager2adapterniubility.R;
 import com.cy.viewpager2adapterniubility.ViewPagerAdapter;
 import com.cy.viewpager2adapterniubility.ViewPagerHolder;
 

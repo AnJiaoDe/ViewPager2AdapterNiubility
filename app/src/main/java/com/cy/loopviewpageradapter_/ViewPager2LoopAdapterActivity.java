@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cy.viewpager2adapterniubility.R;
 import com.cy.viewpager2adapterniubility.SimpleIndicatorView;
 import com.cy.viewpager2adapterniubility.ViewPager2Holder;
 import com.cy.viewpager2adapterniubility.ViewPager2LoopAdapter;

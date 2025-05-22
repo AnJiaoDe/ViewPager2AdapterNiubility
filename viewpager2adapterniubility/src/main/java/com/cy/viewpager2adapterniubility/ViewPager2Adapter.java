@@ -30,7 +30,6 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     private ViewPager2 viewPager2;
     private View.OnAttachStateChangeListener onAttachStateChangeListener;
     private ViewPager2.OnPageChangeCallback onPageChangeCallback;
-    //    protected SparseArray<ViewPager2Holder> sparseArrayViewPager2Holder;
     protected Map<Object, ViewPager2Holder> mapViewPager2Holder;
     private int position_selected_last = -1;
 
@@ -47,7 +46,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
             @Override
             public void onPageSelected(int position) {
                 if (position < 0 || position >= list_bean.size()) return;
-                ViewPager2Holder viewPager2Holder = mapViewPager2Holder.get(setHolderTagPreBindData(position, list_bean.get(position)));
+                ViewPager2Holder viewPager2Holder = mapViewPager2Holder.get(getHolderTagPreBindData(position, list_bean.get(position)));
                 if (viewPager2Holder != null)
                     ViewPager2Adapter.this.onPageSelected(viewPager2Holder, position, list_bean.get(position));
             }
@@ -113,7 +112,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
         //场景一旦复杂，各种remove 各种add 各种notify，各种multiadapter，很容易数组越界，故而必须判断
         if (position < 0 || position >= list_bean.size()) return;
 
-        Object tag = setHolderTagPreBindData(position, list_bean.get(position));
+        Object tag = getHolderTagPreBindData(position, list_bean.get(position));
         mapViewPager2Holder.put(tag, holder);
 //        sparseArrayViewPager2Holder.put(position, holder);
         handleClick(holder);
@@ -162,7 +161,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     }
 
     @NonNull
-    public Object setHolderTagPreBindData(int position, T bean) {
+    public Object getHolderTagPreBindData(int position, T bean) {
         return position;
     }
 
@@ -365,7 +364,6 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      */
     public <W extends IPageAdapter<T, ViewPager2Holder>> W clearNoNotify() {
         list_bean.clear();
-        sparseArrayViewPager2Holder.clear();
         position_selected_last = -1;
         return (W) this;
     }

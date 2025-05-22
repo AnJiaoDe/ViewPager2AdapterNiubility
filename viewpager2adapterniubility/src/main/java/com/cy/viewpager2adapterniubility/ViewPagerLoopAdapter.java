@@ -62,7 +62,8 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
 //                if (p == 0 || p == getCount() - 1) return;
                 int position = getPosition(p);
 
-                ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+                if(position<0||position>=list_bean.size())return;
+                ViewPagerHolder viewPagerHolder = sparseArrayViewPagerHolder.get(position);
                 if (viewPagerHolder == null) {
 //                    positonSelectedNoCallbck = position;
                     return;
@@ -119,7 +120,8 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
     }
 
     @Override
-    public void onViewDetachedFromWindow(View v) {
+    public void onViewPagerDetachedFromWindow(View v) {
+        super.onViewPagerDetachedFromWindow(v);
         stopLoop();
     }
 
@@ -228,10 +230,6 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
         timerTask = null;
     }
 
-//    public void setStartItem() {
-//        viewPager.setCurrentItem(1, false);
-//    }
-
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -243,11 +241,5 @@ public abstract class ViewPagerLoopAdapter<T> extends AbsViewPagerAdapter<T> {
         indicatorView.setCount(list_bean.size())
                 .getView()
                 .invalidate();
-    }
-
-    @Override
-    public <W extends IPageAdapter> W clearNoNotify() {
-//        positonSelectedNoCallbck = -1;
-        return super.clearNoNotify();
     }
 }

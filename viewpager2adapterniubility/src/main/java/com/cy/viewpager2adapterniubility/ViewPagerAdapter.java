@@ -1,10 +1,12 @@
 package com.cy.viewpager2adapterniubility;
 
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 /**
@@ -27,7 +29,7 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
 
             @Override
             public void onPageSelected(int position) {
-                ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+                ViewPagerHolder viewPagerHolder = sparseArrayViewPagerHolder.get(position);
                 if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
                     ViewPagerAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
             }
@@ -52,7 +54,6 @@ public abstract class ViewPagerAdapter<T> extends AbsViewPagerAdapter<T> {
     public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
 //        LogUtils.log("onPageSelected000", position);
     }
-
     @Override
     public int getCount() {
         return list_bean.size();

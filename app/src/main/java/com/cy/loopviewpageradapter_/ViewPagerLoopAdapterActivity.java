@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.cy.viewpager2adapterniubility.R;
 import com.cy.viewpager2adapterniubility.SimpleIndicatorView;
 import com.cy.viewpager2adapterniubility.ViewPagerHolder;
 import com.cy.viewpager2adapterniubility.ViewPagerLoopAdapter;
+
 
 public class ViewPagerLoopAdapterActivity extends AppCompatActivity {
 

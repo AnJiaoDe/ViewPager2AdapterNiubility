@@ -15,11 +15,10 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
     protected ViewPager viewPager;
     protected int position_selected_last = -1;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
-
     public AbsViewPagerAdapter(final ViewPager viewPager) {
         list_bean = new ArrayList<>();
         this.viewPager = viewPager;
-        sparseArrayViewPagerHolder = new SparseArray<>();
+        sparseArrayViewPagerHolder=new SparseArray<>();
         viewPager.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View v) {
@@ -49,19 +48,15 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
     public void onViewRecycled(int position, @NonNull T bean){
 
     }
-    @Override
-    public ViewPagerHolder getViewPagerHolderFromPosition(int position) {
-        return sparseArrayViewPagerHolder.get(position);
-    }
 
     @Override
     public <W extends IPageAdapter<T, ViewPagerHolder>> W getAdapter() {
         return (W) this;
     }
 
-    public SparseArray<ViewPagerHolder> getSparseArrayIViewHolder() {
-        return sparseArrayViewPagerHolder;
-    }
+//    public SparseArray<ViewPagerHolder> getSparseArrayIViewHolder() {
+//        return sparseArrayViewPagerHolder;
+//    }
 
     @Override
     public <W extends IPageAdapter<T, ViewPagerHolder>> W setList_bean(List<T> list_bean) {
@@ -178,7 +173,6 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
     @Override
     public <W extends IPageAdapter<T, ViewPagerHolder>> W clearNoNotify() {
         list_bean.clear();
-        sparseArrayViewPagerHolder.clear();
         position_selected_last = -1;
         return (W) this;
     }

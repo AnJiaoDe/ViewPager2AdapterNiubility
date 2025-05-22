@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cy.viewpager2adapterniubility.R;
-import com.cy.viewpager2adapterniubility.ViewPagerHolder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView
         findViewById(R.id.vp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
