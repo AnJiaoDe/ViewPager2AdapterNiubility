@@ -124,7 +124,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     @Override
     public int getItemViewType(int position) {
         int p = getPosition(position);
-        if (position < 0 || position >= list_bean.size()) return 0;
+        if (p < 0 || p >= list_bean.size()) return 0;
         return getItemLayoutID(p, list_bean.get(p));
     }
 
