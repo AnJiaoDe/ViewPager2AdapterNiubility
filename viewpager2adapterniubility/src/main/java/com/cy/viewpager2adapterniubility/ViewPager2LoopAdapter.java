@@ -196,6 +196,9 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     public void setStartItem() {
+        if(getItemCount()<2){
+            return;
+        }
         viewPager2.setCurrentItem(1, false);
     }
 
