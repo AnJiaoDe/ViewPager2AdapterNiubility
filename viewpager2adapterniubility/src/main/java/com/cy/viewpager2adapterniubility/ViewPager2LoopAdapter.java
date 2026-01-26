@@ -93,7 +93,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
 //            onPageSelected(viewPager2Holder, p, list_bean.get(p));
 //    }
     @Override
-    public  final void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
+    public final void onPageSelected(ViewPager2Holder viewPager2Holder, int position, @NonNull T bean) {
     }
 
     @Override
@@ -124,6 +124,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     @Override
     public int getItemViewType(int position) {
         int p = getPosition(position);
+        if (position < 0 || position >= list_bean.size()) return 0;
         return getItemLayoutID(p, list_bean.get(p));
     }
 
@@ -134,6 +135,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition() - 1;
+                if (position < 0 || position >= list_bean.size()) return;
                 onItemClick(holder, position, list_bean.get(position));
             }
         });
@@ -196,7 +198,7 @@ public abstract class ViewPager2LoopAdapter<T> extends ViewPager2Adapter<T> {
     }
 
     public void setStartItem() {
-        if(getItemCount()<2){
+        if (getItemCount() < 2) {
             return;
         }
         viewPager2.setCurrentItem(1, false);
