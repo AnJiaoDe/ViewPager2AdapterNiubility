@@ -93,6 +93,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
     public void onViewPagerDetachedFromWindow(View v) {
 
     }
+
     @Override
     public ViewPager2Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewPager2Holder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
@@ -209,6 +210,7 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
      * 删除相应position的数据Item
      */
     public <W extends IPageAdapter<T, ViewPager2Holder>> W removeNoNotify(int position) {
+        if (position < 0 || position >= list_bean.size()) return (W) this;
         list_bean.remove(position);
         return (W) this;
     }
@@ -224,6 +226,16 @@ public abstract class ViewPager2Adapter<T> extends RecyclerView.Adapter<ViewPage
          onBindViewHolder回调的position永远是4
          */
         notifyItemRemoved(position);
+        return (W) this;
+    }
+
+    public <W extends IPageAdapter<T, ViewPager2Holder>> W removeNoNotify(T bean) {
+        list_bean.remove(bean);
+        return (W) this;
+    }
+
+    public <W extends IPageAdapter<T, ViewPager2Holder>> W remove(T bean) {
+        remove(list_bean.indexOf(bean));
         return (W) this;
     }
 

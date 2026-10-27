@@ -15,10 +15,11 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
     protected ViewPager viewPager;
     protected int position_selected_last = -1;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
+
     public AbsViewPagerAdapter(final ViewPager viewPager) {
         list_bean = new ArrayList<>();
         this.viewPager = viewPager;
-        sparseArrayViewPagerHolder=new SparseArray<>();
+        sparseArrayViewPagerHolder = new SparseArray<>();
         viewPager.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View v) {
@@ -45,7 +46,8 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
     public int getDataCount() {
         return list_bean.size();
     }
-    public void onViewRecycled(int position, @NonNull T bean){
+
+    public void onViewRecycled(int position, @NonNull T bean) {
 
     }
 
@@ -76,6 +78,7 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
 
     @Override
     public <W extends IPageAdapter<T, ViewPagerHolder>> W removeNoNotify(int position) {
+        if (position < 0 || position >= list_bean.size()) return (W) this;
         list_bean.remove(position);
         return (W) this;
     }
@@ -88,6 +91,18 @@ public abstract class AbsViewPagerAdapter<T> extends PagerAdapter implements IPa
         removeNoNotify(position);
         viewPager.setAdapter(this);
         viewPager.setCurrentItem(position);
+        return (W) this;
+    }
+
+    @Override
+    public <W extends IPageAdapter<T, ViewPagerHolder>> W removeNoNotify(T bean) {
+        list_bean.remove(bean);
+        return (W) this;
+    }
+
+    @Override
+    public <W extends IPageAdapter<T, ViewPagerHolder>> W remove(T bean) {
+        remove(list_bean.indexOf(bean));
         return (W) this;
     }
 
